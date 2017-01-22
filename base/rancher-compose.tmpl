@@ -12,9 +12,9 @@ services:
       port_rules:
         - priority: 1
           protocol: http
-          service: cowpoke-app
-          source_port: 8100
-          target_port: 8100
+          service: {{ .Project }}-app
+          source_port: 8001
+          target_port: 8001
     health_check:
       port: 42
       interval: 10000
