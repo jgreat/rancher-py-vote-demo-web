@@ -1,0 +1,36 @@
+.catalog:
+  name: master
+  version: jgreat_py-vote-demo-web_master_0.1.0_1485130703_2d982f49
+  description: py-vote-demo-web
+
+version: '2'
+services:
+  py-vote-demo-web:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+        - priority: 1
+          protocol: http
+          service: py-vote-demo-web-app
+          source_port: 8001
+          target_port: 8001
+    health_check:
+      port: 42
+      interval: 10000
+      strategy: none
+      unhealthy_threshold: 2
+      healthy_threshold: 2
+      response_timeout: 2000
+
+  py-vote-demo-web-app:
+    scale: 1
+    start_on_create: true
+    health_check:
+      port: 8001
+      interval: 10000
+      strategy: none
+      unhealthy_threshold: 2
+      request_line: GET / HTTP/1.1
+      healthy_threshold: 2
+      response_timeout: 2000
