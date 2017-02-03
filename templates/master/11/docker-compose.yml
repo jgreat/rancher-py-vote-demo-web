@@ -1,0 +1,21 @@
+version: '2'
+services:
+  py-vote-demo-web:
+    image: rancher/lb-service-haproxy:v0.4.9
+    ports:
+      - 8001:8001/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+      io.rancher.container.hostname_override: container_name
+
+  py-vote-demo-web-app:
+    image: jgreat/py-vote-demo-web:jgreat_py-vote-demo-web_master_0.1.1_1486138757_68542c82
+    expose:
+      - 8001
+    environment:
+      RANCHER_SERVICE_DISCOVERY: 'true'
+      LISTEN_PORT: 8001
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
