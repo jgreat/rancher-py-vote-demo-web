@@ -1,6 +1,6 @@
 .catalog:
   name: {{ .Branch }}
-  version: {{ .Tag }}
+  version: {{ .Version }}+{{ .Build }}.{{ .Branch }}.{{ .SHA }}
   description: {{ .Project }}
 
 version: '2'
